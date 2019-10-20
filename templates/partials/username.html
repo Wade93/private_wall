@@ -1,0 +1,11 @@
+{% if length == True %}
+    {% if found == True %}
+    <p class="text-danger">Username has been taken.</p>
+    {% endif %}
+    {% if found == False %}
+    <p class="text-success"> This username is available!</p>
+    {% endif %}
+{% endif %}
+{% if length == False %}
+    <p class="text-danger"> Username must be at least 4 characters long.</p>
+{% endif %}

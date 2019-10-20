@@ -1,0 +1,10 @@
+{% if found == True %}
+
+
+<datalist id="names">
+    {% for user in users %}
+        <option>{{user['first_name']}} {{user['last_name']}}</option>
+    {% endfor %}
+</datalist>
+
+{% endif %}

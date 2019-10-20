@@ -1,0 +1,9 @@
+{% for message in messages %}
+    <div class="card mb-4">
+        <div class="card-body">
+            <strong class="card-title ml-3">From {{message['first_name']}}</strong>
+            <p  class="card-text">"{{message['content']}}"</p>
+            <form action="/delete/{{message['id']}}" class="trashcan"><input type="submit" value="DELETE"></form>
+        </div>
+    </div>
+{% endfor %}

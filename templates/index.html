@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login & Registration</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    </head>
+    <body class="container">
+        <div class="row justify-content-between">
+            <form class="col-4" action='/process' id="regForm" method='POST'>
+                <h1>Register New User</h1>
+                {% with errors = get_flashed_messages(category_filter=["fname", "fname_val"]) %}
+                    {% if errors %}
+                        {% for msg in errors %}
+                            <p class="text-danger">{{ msg }}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                
+                <input type="text" id="fname" name="fname" value="{{session['fname_entry']}}">
+                <p>First Name:</p>
+                {% with errors = get_flashed_messages(category_filter=["lname", "lname_val"]) %}
+                    {% if errors %}
+                        {% for msg in errors %}
+                            <p class="text-danger">{{ msg }}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                
+                <input type="text" id="lname" name="lname" value="{{session['lname_entry']}}">
+                <p>Last Name:</p>
+                
+                <div id="usernameMsg"></div>   <!-- notice the empty div reserved for our message -->
+                {% with errors = get_flashed_messages(category_filter=["uname", "uname_val"]) %}
+                    {% if errors %}
+                        {% for msg in errors %}
+                            <p class="text-danger">{{ msg }}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <input type="text" id="username" name="username">
+                <p>Username: </p>
+                {% with errors = get_flashed_messages(category_filter=["email_enter", "email_val"]) %}
+                    {% if errors %}
+                        {% for msg in errors %}
+                            <p class="text-danger">{{ msg }}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <input type="text" id="email" name="email" value="{{session['email_entry']}}">
+                <p>Email:</p>
+                {% with errors = get_flashed_messages(category_filter=["pw_enter", "pw_minimum"]) %}
+                    {% if errors %}
+                        {% for msg in errors %}
+                            <p class="text-danger">{{ msg }}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                
+                <input type="password" id="pw" name="pw">
+                <p>Create a password!</p>
+                {% with errors = get_flashed_messages(category_filter=["confirm", "pw_match"]) %}
+                    {% if errors %}
+                        {% for msg in errors %}
+                            <p class="text-danger">{{ msg }}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                
+                <input type="password" id="pwc" name="pwc">
+                <p>Confirm password:</p>
+                <p><input type="submit" value="SUBMIT!!"></p>
+            </form>
+            <form class="col-4" action="/login" method="POST">
+                <h1>Log In</h1>
+                
+                <input type="email" name="email">
+                <p>Email: </p>
+                
+                <input type="password" name="pw">
+                <p>Password: </p>
+                <p><input type="submit" value="LOG IN!"></p>
+            </form>
+        </div>
+
+        <div class="row mt-5">
+            <p class="lead">Find your friends here!</p>
+            <div class="form">
+                <form method="GET" id="searchbar" action="/search_bar_results">  <!-- using GET will place the form inputs in the url as query strings-->
+                    <input type="search" list="names" id="firstname" name="name">
+                </form>
+                <div class="mt-5 col-4" id="search_results"></div>
+            </div>
+        </div>
+
+        <script src="{{ url_for('static', filename='wall.js') }}"></script>
+    </body>
+</html>
